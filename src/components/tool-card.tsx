@@ -14,10 +14,10 @@ export function ToolCard({ tool }: ToolCardProps) {
   const categoryLabel = categories.find(c => c.id === tool.category)?.label || tool.category;
 
   return (
-    <Card className="group bg-white border-gray-200 hover:shadow-md transition-shadow duration-200 h-full">
+    <Card className="group bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800 hover:shadow-md dark:hover:shadow-gray-900/50 transition-shadow duration-200 h-full">
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between gap-4">
-          <h3 className="font-semibold text-gray-900 text-lg leading-tight">
+          <h3 className="font-semibold text-gray-900 dark:text-gray-100 text-lg leading-tight">
             {tool.name}
           </h3>
           <div className="flex gap-1">
@@ -25,7 +25,7 @@ export function ToolCard({ tool }: ToolCardProps) {
               <Button
                 variant="ghost"
                 size="icon"
-                className="shrink-0 h-8 w-8 text-gray-400 hover:text-gray-900 hover:bg-gray-100"
+                className="shrink-0 h-8 w-8 text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800"
                 asChild
               >
                 <a
@@ -41,7 +41,7 @@ export function ToolCard({ tool }: ToolCardProps) {
             <Button
               variant="ghost"
               size="icon"
-              className="shrink-0 h-8 w-8 text-gray-400 hover:text-blue-600 hover:bg-blue-50"
+              className="shrink-0 h-8 w-8 text-gray-400 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950"
               asChild
             >
               <a
@@ -56,17 +56,17 @@ export function ToolCard({ tool }: ToolCardProps) {
           </div>
         </div>
         {tool.author && (
-          <p className="text-xs text-gray-500 mt-1">by {tool.author}</p>
+          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">by {tool.author}</p>
         )}
       </CardHeader>
       <CardContent className="pt-0 flex flex-col flex-1">
-        <p className="text-gray-600 text-sm leading-relaxed flex-1">
+        <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed flex-1">
           {tool.description}
         </p>
         <div className="flex flex-wrap gap-2 mt-4 max-h-[3.25rem] overflow-hidden">
           <Badge
             variant="secondary"
-            className="bg-blue-50 text-blue-700 hover:bg-blue-100 border-0 text-xs font-medium"
+            className="bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900 border-0 text-xs font-medium"
           >
             {categoryLabel}
           </Badge>
@@ -74,7 +74,7 @@ export function ToolCard({ tool }: ToolCardProps) {
             <Badge
               key={tag}
               variant="secondary"
-              className="bg-gray-100 text-gray-600 hover:bg-gray-200 border-0 text-xs"
+              className="bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 border-0 text-xs"
             >
               {tag}
             </Badge>

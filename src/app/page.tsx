@@ -58,7 +58,7 @@ function HomeContent() {
     : categories.find((c) => c.id === selectedCategory)?.label || "All Tools";
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex flex-col">
       <Header searchQuery={searchQuery} onSearchChange={setSearchQuery} />
 
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1">
@@ -74,10 +74,10 @@ function HomeContent() {
           <div className="flex-1 min-w-0">
             {/* Results header */}
             <div className="mb-6 flex items-center justify-between">
-              <h1 className="text-2xl font-semibold text-gray-900">
+              <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
                 {activeCategoryLabel}
               </h1>
-              <span className="text-sm text-gray-500">
+              <span className="text-sm text-gray-500 dark:text-gray-400">
                 {filteredTools.length} tool{filteredTools.length !== 1 ? "s" : ""}
               </span>
             </div>
@@ -90,8 +90,8 @@ function HomeContent() {
                 ))}
               </div>
             ) : (
-              <div className="text-center py-16 bg-white rounded-lg border border-gray-200">
-                <p className="text-gray-500">
+              <div className="text-center py-16 bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800">
+                <p className="text-gray-500 dark:text-gray-400">
                   No tools found matching your criteria.
                 </p>
                 <button
@@ -110,23 +110,23 @@ function HomeContent() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-gray-200 bg-white">
+      <footer className="border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-5">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-sm text-gray-400">
+            <p className="text-sm text-gray-400 dark:text-gray-500">
               © {new Date().getFullYear()} lukso.tools — LUKSO Ecosystem Directory
             </p>
             <div className="flex items-center gap-5">
               <a
                 href="https://github.com/JordyDutch/lukso.tools/blob/main/CONTRIBUTING.md"
-                className="text-sm text-gray-400 hover:text-blue-600 transition-colors"
+                className="text-sm text-gray-400 dark:text-gray-500 hover:text-blue-600 transition-colors"
               >
                 Submit Tool
               </a>
-              <span className="text-gray-200">·</span>
+              <span className="text-gray-200 dark:text-gray-700">·</span>
               <a
                 href="https://github.com/JordyDutch/lukso.tools"
-                className="text-sm text-gray-400 hover:text-blue-600 transition-colors"
+                className="text-sm text-gray-400 dark:text-gray-500 hover:text-blue-600 transition-colors"
               >
                 GitHub
               </a>

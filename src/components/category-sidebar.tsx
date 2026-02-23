@@ -24,7 +24,7 @@ export function CategorySidebar({
   return (
     <aside className="w-full lg:w-64 shrink-0">
       <div className="sticky top-20">
-        <h2 className="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-4 px-1">
+        <h2 className="text-sm font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider mb-4 px-1">
           Categories
         </h2>
         <nav className="space-y-1">
@@ -35,8 +35,8 @@ export function CategorySidebar({
               className={cn(
                 "w-full flex items-center justify-between px-3 py-2 text-sm font-medium rounded-md transition-colors",
                 selectedCategory === category.id
-                  ? "bg-blue-50 text-blue-700"
-                  : "text-gray-700 hover:bg-gray-100"
+                  ? "bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300"
+                  : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
               )}
             >
               <span>{category.label}</span>
@@ -44,8 +44,8 @@ export function CategorySidebar({
                 className={cn(
                   "text-xs",
                   selectedCategory === category.id
-                    ? "text-blue-600"
-                    : "text-gray-500"
+                    ? "text-blue-600 dark:text-blue-400"
+                    : "text-gray-500 dark:text-gray-500"
                 )}
               >
                 {category.count}
