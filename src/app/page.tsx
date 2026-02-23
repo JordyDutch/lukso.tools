@@ -1,14 +1,33 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback, Suspense } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import { Header } from "@/components/header";
 import { CategorySidebar } from "@/components/category-sidebar";
 import { ToolCard } from "@/components/tool-card";
 import { tools, categories, ToolCategory } from "@/data/tools";
 
-export default function Home() {
+const validCategories = categories.map(c => c.id);
+
+function HomeContent() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState<ToolCategory>("all");
+
+  const categoryParam = searchParams.get("category") as ToolCategory | null;
+  const selectedCategory: ToolCategory =
+    categoryParam && validCategories.includes(categoryParam) ? categoryParam : "all";
+
+  const setSelectedCategory = useCallback((category: ToolCategory) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (category === "all") {
+      params.delete("category");
+    } else {
+      params.set("category", category);
+    }
+    const query = params.toString();
+    router.push(query ? `?${query}` : "/", { scroll: false });
+  }, [searchParams, router]);
 
   const filteredTools = useMemo(() => {
     return tools.filter((tool) => {
@@ -34,8 +53,8 @@ export default function Home() {
     return counts;
   }, []);
 
-  const activeCategoryLabel = selectedCategory === "all" 
-    ? "All Tools" 
+  const activeCategoryLabel = selectedCategory === "all"
+    ? "All Tools"
     : categories.find((c) => c.id === selectedCategory)?.label || "All Tools";
 
   return (
@@ -116,5 +135,13 @@ export default function Home() {
         </div>
       </footer>
     </div>
+  );
+}
+
+export default function Home() {
+  return (
+    <Suspense>
+      <HomeContent />
+    </Suspense>
   );
 }
