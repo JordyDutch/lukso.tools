@@ -318,5 +318,14 @@ export const tools: Tool[] = [
     githubUrl: "https://github.com/Forever-Moments/forever-moments-api",
     tags: ["api", "agent", "lsp8", "gasless"],
     author: "Forever Moments"
+  },
+  {
+    id: "sigmacore-rpc",
+    name: "SigmaCore RPC",
+    description: "Dedicated LUKSO RPC endpoint by SigmaCore. Provides reliable node access for dApps and developers. Requires an API key — sign up on their website to get started.",
+    url: "https://sigmacore.io",
+    category: "developer",
+    tags: ["rpc", "node", "api-key", "infrastructure"],
+    author: "SigmaCore"
   }
 ];
