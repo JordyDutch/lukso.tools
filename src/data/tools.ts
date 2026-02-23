@@ -327,5 +327,65 @@ export const tools: Tool[] = [
     category: "developer",
     tags: ["rpc", "node", "api-key", "infrastructure"],
     author: "SigmaCore"
+  },
+  {
+    id: "lukso-docs",
+    name: "LUKSO Documentation",
+    description: "Official technical documentation for LUKSO. Covers LSP standards, Universal Profiles, smart contract guides, network info, and complete API references for building on LUKSO.",
+    url: "https://docs.lukso.tech",
+    category: "developer",
+    githubUrl: "https://github.com/lukso-network/docs",
+    tags: ["docs", "guides", "standards", "lsp"],
+    author: "LUKSO"
+  },
+  {
+    id: "lukso-lips",
+    name: "LUKSO Improvement Proposals (LIPs)",
+    description: "Official repository of LUKSO Improvement Proposals and LSP standards. The formal specification process for all LUKSO standards including LSP0 through LSP28.",
+    url: "https://github.com/lukso-network/LIPs",
+    category: "developer",
+    githubUrl: "https://github.com/lukso-network/LIPs",
+    tags: ["standards", "lips", "lsp", "specifications"],
+    author: "LUKSO"
+  },
+  {
+    id: "dapp-boilerplate",
+    name: "LUKSO dApp Boilerplate",
+    description: "Official Next.js template for building dApps on LUKSO. Pre-configured with Universal Profile connection, LSP helpers, and best practices to get started quickly.",
+    url: "https://github.com/lukso-network/tools-dapp-boilerplate",
+    category: "developer",
+    githubUrl: "https://github.com/lukso-network/tools-dapp-boilerplate",
+    tags: ["boilerplate", "nextjs", "template", "dapp"],
+    author: "LUKSO"
+  },
+  {
+    id: "miniapp-template",
+    name: "Mini-App Template",
+    description: "Official Next.js template for building Mini-Apps for the Universal Profile Grid. Includes UP Provider setup and everything needed to create Grid-compatible mini-apps.",
+    url: "https://github.com/lukso-network/miniapp-nextjs-template",
+    category: "developer",
+    githubUrl: "https://github.com/lukso-network/miniapp-nextjs-template",
+    tags: ["mini-apps", "grid", "nextjs", "template"],
+    author: "LUKSO"
+  },
+  {
+    id: "eip191-signer",
+    name: "EIP-191 Signer",
+    description: "Utility tool to sign EIP-191 Execute Relay Call transactions for LUKSO. Essential for building gasless transaction flows using the Key Manager relay service.",
+    url: "https://github.com/lukso-network/tools-eip191-signer",
+    category: "developer",
+    githubUrl: "https://github.com/lukso-network/tools-eip191-signer",
+    tags: ["eip-191", "relay", "gasless", "signing"],
+    author: "LUKSO"
+  },
+  {
+    id: "network-configs",
+    name: "LUKSO Network Configs",
+    description: "Official LUKSO network configuration files. Contains genesis files, bootnodes, and chain parameters for mainnet and testnet. Essential reference for node operators.",
+    url: "https://github.com/lukso-network/network-configs",
+    category: "developer",
+    githubUrl: "https://github.com/lukso-network/network-configs",
+    tags: ["network", "config", "mainnet", "testnet"],
+    author: "LUKSO"
   }
 ];
