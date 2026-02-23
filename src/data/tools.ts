@@ -271,5 +271,52 @@ export const tools: Tool[] = [
     category: "social",
     tags: ["directory", "ecosystem", "navigation", "resources"],
     author: "Community"
+  },
+  {
+    id: "potato-tipper",
+    name: "POTATO Tipper",
+    description: "Automatically reward new followers with $POTATO tokens. Set up a tipping budget, configure tip amounts, and define eligibility criteria like minimum followers or token balance.",
+    url: "https://potatotipper.app",
+    category: "social",
+    tags: ["tipping", "potato", "followers", "universal-profile"],
+    author: "Jean Cavallera"
+  },
+  {
+    id: "0xsoul",
+    name: "0xSoul",
+    description: "Immersive on-chain MMORPG in development for LUKSO. A persistent digital world with intelligent NPCs, discoverable legendary items, and dynamic economic and political systems.",
+    url: "https://www.0xsoul.com",
+    category: "social",
+    tags: ["gaming", "mmorpg", "on-chain", "npc"],
+    author: "Community"
+  },
+  {
+    id: "forever-moments",
+    name: "Forever Moments",
+    description: "Create and share collections of memories stored on-chain. Curate shared experiences around events, festivals, and movements with photos, videos, and articles — each owned by its creator.",
+    url: "https://www.forevermoments.life",
+    category: "social",
+    tags: ["memories", "collections", "on-chain", "marketplace"],
+    author: "Forever Moments"
+  },
+  {
+    id: "agent-skills-hub",
+    name: "Agent Skills Hub",
+    description: "Community repository of OpenClaw skills for autonomous AI agents. Pre-built, reusable skills for Universal Profile management, token operations, and liquid staking on LUKSO and EVM chains.",
+    url: "https://github.com/JordyDutch/Agent-skills-hub",
+    category: "developer",
+    githubUrl: "https://github.com/JordyDutch/Agent-skills-hub",
+    tags: ["ai-agents", "openclaw", "skills", "sdk"],
+    author: "JordyDutch"
+  },
+  {
+    id: "forever-moments-api",
+    name: "Forever Moments API",
+    description: "Public and Agent API for the Forever Moments platform. Build transaction plans for minting Moments, creating Collections, transferring $LIKES tokens, and gasless marketplace actions on LUKSO.",
+    url: "https://github.com/Forever-Moments/forever-moments-api",
+    category: "developer",
+    githubUrl: "https://github.com/Forever-Moments/forever-moments-api",
+    tags: ["api", "agent", "lsp8", "gasless"],
+    author: "Forever Moments"
   }
 ];
