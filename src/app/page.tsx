@@ -59,11 +59,18 @@ function HomeContent() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex flex-col">
-      <Header searchQuery={searchQuery} onSearchChange={setSearchQuery} />
+      <Header
+        searchQuery={searchQuery}
+        onSearchChange={setSearchQuery}
+        onReset={() => {
+          setSearchQuery("");
+          setSelectedCategory("all");
+        }}
+      />
 
-      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1">
-        <div className="flex flex-col lg:flex-row gap-8">
-          {/* Sidebar */}
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8 flex-1">
+        <div className="flex flex-col lg:flex-row gap-4 lg:gap-8">
+          {/* Categories */}
           <CategorySidebar
             categories={categories.map(c => ({ ...c, count: categoryCounts[c.id] || 0 }))}
             selectedCategory={selectedCategory}
@@ -73,8 +80,8 @@ function HomeContent() {
           {/* Main Content */}
           <div className="flex-1 min-w-0">
             {/* Results header */}
-            <div className="mb-6 flex items-center justify-between">
-              <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
+            <div className="mb-4 sm:mb-6 flex items-center justify-between">
+              <h1 className="text-xl sm:text-2xl font-semibold text-gray-900 dark:text-gray-100">
                 {activeCategoryLabel}
               </h1>
               <span className="text-sm text-gray-500 dark:text-gray-400">
@@ -84,13 +91,13 @@ function HomeContent() {
 
             {/* Tools Grid */}
             {filteredTools.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-4">
                 {filteredTools.map((tool) => (
                   <ToolCard key={tool.id} tool={tool} />
                 ))}
               </div>
             ) : (
-              <div className="text-center py-16 bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800">
+              <div className="text-center py-12 sm:py-16 bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800">
                 <p className="text-gray-500 dark:text-gray-400">
                   No tools found matching your criteria.
                 </p>

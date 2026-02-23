@@ -14,8 +14,8 @@ export function ToolCard({ tool }: ToolCardProps) {
   const categoryLabel = categories.find(c => c.id === tool.category)?.label || tool.category;
 
   return (
-    <Card className="group bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800 hover:shadow-md dark:hover:shadow-gray-900/50 transition-shadow duration-200 h-full">
-      <CardHeader className="pb-3">
+    <Card className="group bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800 hover:shadow-md dark:hover:shadow-gray-900/50 transition-shadow duration-200 h-full py-4 sm:py-6 gap-4 sm:gap-6">
+      <CardHeader className="pb-3 px-4 sm:px-6">
         <div className="flex items-start justify-between gap-4">
           <h3 className="font-semibold text-gray-900 dark:text-gray-100 text-lg leading-tight">
             {tool.name}
@@ -59,7 +59,7 @@ export function ToolCard({ tool }: ToolCardProps) {
           <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">by {tool.author}</p>
         )}
       </CardHeader>
-      <CardContent className="pt-0 flex flex-col flex-1">
+      <CardContent className="pt-0 flex flex-col flex-1 px-4 sm:px-6">
         <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed flex-1">
           {tool.description}
         </p>

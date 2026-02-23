@@ -7,22 +7,26 @@ import { useTheme } from "@/components/theme-provider";
 interface HeaderProps {
   searchQuery: string;
   onSearchChange: (query: string) => void;
+  onReset: () => void;
 }
 
-export function Header({ searchQuery, onSearchChange }: HeaderProps) {
+export function Header({ searchQuery, onSearchChange, onReset }: HeaderProps) {
   const { theme, toggleTheme } = useTheme();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-gray-950/80 backdrop-blur-md">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between gap-4">
+        <div className="flex h-14 sm:h-16 items-center justify-between gap-2 sm:gap-4">
           {/* Logo */}
-          <div className="flex items-center gap-2 shrink-0">
+          <button
+            onClick={onReset}
+            className="flex items-center gap-2 shrink-0 cursor-pointer"
+          >
             <img src="/logo.svg" alt="LUKSO" className="h-8 w-8" />
             <span className="font-semibold text-gray-900 dark:text-gray-100 text-lg hidden sm:block">
               lukso.tools
             </span>
-          </div>
+          </button>
 
           {/* Search Bar */}
           <div className="flex-1 max-w-xl">
