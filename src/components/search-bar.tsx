@@ -20,7 +20,7 @@ export function SearchBar({ value, onChange, placeholder = "Search tools...", cl
         placeholder={placeholder}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="pl-10 h-11 bg-white dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 focus-visible:ring-zinc-950 dark:focus-visible:ring-zinc-300"
+        className="pl-10 h-11 bg-white border-zinc-200 focus-visible:ring-zinc-950"
       />
     </div>
   );

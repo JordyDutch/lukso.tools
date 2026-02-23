@@ -17,6 +17,9 @@ export const metadata: Metadata = {
   description: "A curated directory of tools, dApps, and resources for the LUKSO ecosystem. Discover DeFi protocols, NFT platforms, wallets, and developer tools.",
   keywords: ["LUKSO", "LYX", "Universal Profile", "LSP", "DeFi", "NFT", "blockchain", "tools", "directory"],
   authors: [{ name: "LUKSO Community" }],
+  icons: {
+    icon: "/favicon.svg",
+  },
   openGraph: {
     title: "lukso.tools - LUKSO Ecosystem Directory",
     description: "Discover the best tools and dApps in the LUKSO ecosystem",

@@ -18,19 +18,19 @@ export function CategoryFilter({ activeCategory, onCategoryChange, counts }: Cat
           onClick={() => onCategoryChange(category.id)}
           className={cn(
             "px-4 py-2 rounded-full text-sm font-medium transition-all duration-200",
-            "border border-zinc-200 dark:border-zinc-800",
-            "hover:border-zinc-400 dark:hover:border-zinc-600",
+            "border border-zinc-200",
+            "hover:border-zinc-400",
             activeCategory === category.id
-              ? "bg-zinc-900 text-white border-zinc-900 dark:bg-zinc-50 dark:text-zinc-900 dark:border-zinc-50"
-              : "bg-white text-zinc-700 dark:bg-zinc-950 dark:text-zinc-300"
+              ? "bg-zinc-900 text-white border-zinc-900"
+              : "bg-white text-zinc-700"
           )}
         >
           {category.label}
           <span className={cn(
             "ml-2 text-xs",
             activeCategory === category.id
-              ? "text-zinc-300 dark:text-zinc-600"
-              : "text-zinc-400 dark:text-zinc-600"
+              ? "text-zinc-300"
+              : "text-zinc-400"
           )}>
             {counts[category.id] || 0}
           </span>

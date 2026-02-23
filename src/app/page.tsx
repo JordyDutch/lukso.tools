@@ -39,10 +39,10 @@ export default function Home() {
     : categories.find((c) => c.id === selectedCategory)?.label || "All Tools";
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 flex flex-col">
       <Header searchQuery={searchQuery} onSearchChange={setSearchQuery} />
 
-      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1">
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Sidebar */}
           <CategorySidebar
@@ -91,22 +91,23 @@ export default function Home() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-gray-200 bg-white mt-auto">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <footer className="border-t border-gray-200 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-5">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-sm text-gray-500">
-              © 2025 lukso.tools - LUKSO Ecosystem Directory
+            <p className="text-sm text-gray-400">
+              © {new Date().getFullYear()} lukso.tools — LUKSO Ecosystem Directory
             </p>
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-5">
               <a
                 href="https://github.com/JordyDutch/lukso.tools/blob/main/CONTRIBUTING.md"
-                className="text-sm text-gray-500 hover:text-blue-600 transition-colors"
+                className="text-sm text-gray-400 hover:text-blue-600 transition-colors"
               >
                 Submit Tool
               </a>
+              <span className="text-gray-200">·</span>
               <a
                 href="https://github.com/JordyDutch/lukso.tools"
-                className="text-sm text-gray-500 hover:text-blue-600 transition-colors"
+                className="text-sm text-gray-400 hover:text-blue-600 transition-colors"
               >
                 GitHub
               </a>

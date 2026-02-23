@@ -15,9 +15,7 @@ export function Header({ searchQuery, onSearchChange }: HeaderProps) {
         <div className="flex h-16 items-center justify-between gap-4">
           {/* Logo */}
           <div className="flex items-center gap-2 shrink-0">
-            <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
-              <span className="text-white font-bold text-sm">L</span>
-            </div>
+            <img src="/logo.svg" alt="LUKSO" className="h-8 w-8" />
             <span className="font-semibold text-gray-900 text-lg hidden sm:block">
               lukso.tools
             </span>

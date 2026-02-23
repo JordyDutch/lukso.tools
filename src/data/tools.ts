@@ -1,5 +1,7 @@
-export type ToolCategory = 
+export type ToolCategory =
   | "all"
+  | "defi"
+  | "marketplace"
   | "indexer"
   | "token"
   | "authorization"
@@ -7,7 +9,8 @@ export type ToolCategory =
   | "migration"
   | "developer"
   | "analytics"
-  | "social";
+  | "social"
+  | "governance";
 
 export interface Tool {
   id: string;
@@ -22,6 +25,8 @@ export interface Tool {
 
 export const categories: { id: ToolCategory; label: string; description: string }[] = [
   { id: "all", label: "All", description: "All tools in the ecosystem" },
+  { id: "defi", label: "DeFi", description: "Staking, swaps, liquidity, and financial tools" },
+  { id: "marketplace", label: "Marketplace", description: "NFT marketplaces and creator storefronts" },
   { id: "indexer", label: "Indexer", description: "Blockchain data indexing and querying" },
   { id: "token", label: "Token", description: "Token drops, claims, and management" },
   { id: "authorization", label: "Authorization", description: "Permission and key management" },
@@ -30,6 +35,7 @@ export const categories: { id: ToolCategory; label: string; description: string 
   { id: "developer", label: "Developer", description: "SDKs and developer tools" },
   { id: "analytics", label: "Analytics", description: "Explorers and dashboards" },
   { id: "social", label: "Social", description: "Social features and community tools" },
+  { id: "governance", label: "Governance", description: "DAOs, voting, and community governance" },
 ];
 
 export const tools: Tool[] = [
@@ -88,6 +94,182 @@ export const tools: Tool[] = [
     url: "https://lsp-mover.sigmacore.io",
     category: "migration",
     tags: ["migration", "lsp7", "lsp8", "transfer", "bulk", "eoa"],
-    author: "SigmaCore"
+    author: "JordyDutch"
+  },
+
+  // DeFi
+  {
+    id: "stakingverse",
+    name: "Stakingverse",
+    description: "Liquid staking for LUKSO. Stake LYX and receive sLYX (LSP7 liquid staking token) to use across DeFi protocols while earning staking rewards.",
+    url: "https://stakingverse.io",
+    category: "defi",
+    tags: ["staking", "liquid-staking", "sLYX", "lsp7", "defi", "validator"],
+    author: "Stakingverse"
+  },
+  {
+    id: "universalswaps",
+    name: "UniversalSwaps",
+    description: "The native decentralized exchange for LUKSO. Swap LSP7 tokens, provide liquidity, and earn fees. Includes a token generator tool for creating new tokens without code.",
+    url: "https://universalswaps.io",
+    category: "defi",
+    tags: ["dex", "swap", "liquidity", "defi", "lsp7", "amm"],
+    author: "UniversalSwaps"
+  },
+
+  // Marketplace
+  {
+    id: "universal-page",
+    name: "Universal Page",
+    description: "The first NFT 2.0 marketplace on LUKSO. Gasless social marketplace for digital art and collectibles with creator storefronts, drops, and Universal Page Names (UPN).",
+    url: "https://universal.page",
+    category: "marketplace",
+    githubUrl: "https://github.com/Universal-Page/contracts",
+    tags: ["marketplace", "nft", "lsp7", "lsp8", "gasless", "creators"],
+    author: "Universal Page"
+  },
+
+  // Authorization / Management
+  {
+    id: "defolio",
+    name: "Defolio",
+    description: "Universal Profile management platform. Manage profile metadata, assets, batch transfers, vaults (LSP9), and third-party permissions (LSP6). BuildUP #2 hackathon winner.",
+    url: "https://www.de-folio.com",
+    category: "authorization",
+    tags: ["profile-management", "lsp6", "lsp9", "vaults", "batch-transfer", "permissions"],
+    author: "Deliquified Labs"
+  },
+
+  // Migration
+  {
+    id: "universal-grave",
+    name: "Universal Grave",
+    description: "Spam filter for Universal Profiles. Automatically redirects unwanted LSP7/LSP8 tokens to a specialized vault. Toggle on/off without losing access to filtered assets.",
+    url: "https://universalgrave.com",
+    category: "migration",
+    githubUrl: "https://github.com/yearone-io/universal-grave",
+    tags: ["spam-filter", "lsp1", "lsp7", "lsp8", "lsp9", "vault"],
+    author: "Year One"
+  },
+
+  // Analytics
+  {
+    id: "blockscout-lukso",
+    name: "LUKSO Blockscout Explorer",
+    description: "Official block explorer for LUKSO mainnet. Search transactions, verify smart contracts, analyze addresses, view network stats, and access blockchain data via API.",
+    url: "https://explorer.execution.mainnet.lukso.network",
+    category: "analytics",
+    githubUrl: "https://github.com/lukso-network/network-explorer-execution",
+    tags: ["explorer", "blockchain", "transactions", "smart-contracts", "api"],
+    author: "LUKSO"
+  },
+  {
+    id: "stakingverse-network-stats",
+    name: "Stakingverse Network Stats",
+    description: "Real-time LUKSO network statistics dashboard. Track validator counts, staking participation, network health, and key blockchain metrics at a glance.",
+    url: "https://app.stakingverse.io/network-stats",
+    category: "analytics",
+    tags: ["network", "statistics", "validators", "staking", "dashboard"],
+    author: "Stakingverse"
+  },
+  {
+    id: "universalprofile-cloud",
+    name: "UniversalProfile.cloud",
+    description: "Official Universal Profile explorer and manager. Browse profiles, tokens (LSP7), and NFTs (LSP8). Create and manage your Universal Profile, send tokens, and manage assets.",
+    url: "https://my.universalprofile.cloud",
+    category: "analytics",
+    githubUrl: "https://github.com/lukso-network/universalprofile.cloud",
+    tags: ["explorer", "profiles", "lsp7", "lsp8", "management"],
+    author: "LUKSO"
+  },
+
+  // Developer
+  {
+    id: "erc725-inspect",
+    name: "ERC725 Inspect",
+    description: "Developer tool to inspect and decode ERC725Y key-value stores on any Universal Profile or LSP smart contract. Includes ABI encoder/decoder for debugging.",
+    url: "https://erc725-inspect.lukso.tech",
+    category: "developer",
+    githubUrl: "https://github.com/lukso-network/tools-erc725-inspect",
+    tags: ["erc725", "inspect", "decoder", "debug", "lsp2"],
+    author: "LUKSO"
+  },
+  {
+    id: "lsp-smart-contracts",
+    name: "LSP Smart Contracts",
+    description: "Official Solidity reference implementations of all LUKSO LSP Standards. Includes ABIs, interface IDs, ERC725Y data keys, and TypeScript types for LSP3/LSP4 metadata.",
+    url: "https://www.npmjs.com/package/@lukso/lsp-smart-contracts",
+    category: "developer",
+    githubUrl: "https://github.com/lukso-network/lsp-smart-contracts",
+    tags: ["smart-contracts", "solidity", "lsp", "npm", "standards"],
+    author: "LUKSO"
+  },
+  {
+    id: "lukso-playground",
+    name: "LUKSO Playground",
+    description: "Collection of TypeScript and Solidity code examples for building dApps with LSP standards. Scripts for Universal Profiles, LSP1 receivers, LSP7/LSP8 tokens, and Hardhat setup.",
+    url: "https://github.com/lukso-network/lukso-playground",
+    category: "developer",
+    githubUrl: "https://github.com/lukso-network/lukso-playground",
+    tags: ["examples", "playground", "typescript", "solidity", "hardhat", "tutorial"],
+    author: "LUKSO"
+  },
+  {
+    id: "up-provider",
+    name: "UP Provider",
+    description: "EIP-1193 compatible provider that enables dApps to function as Mini-Apps on Universal Profiles. One-click connection for Grid-based mini-apps.",
+    url: "https://www.npmjs.com/package/@lukso/up-provider",
+    category: "developer",
+    githubUrl: "https://github.com/lukso-network/tools-up-provider",
+    tags: ["provider", "eip-1193", "mini-apps", "grid", "sdk", "npm"],
+    author: "LUKSO"
+  },
+  {
+    id: "lukso-cli",
+    name: "LUKSO CLI",
+    description: "Command line tool to install, manage, and set up validators of different clients for the LUKSO blockchain. Essential for node operators.",
+    url: "https://github.com/lukso-network/tools-lukso-cli",
+    category: "developer",
+    githubUrl: "https://github.com/lukso-network/tools-lukso-cli",
+    tags: ["cli", "validator", "node", "infrastructure", "staking"],
+    author: "LUKSO"
+  },
+  {
+    id: "dia-oracle",
+    name: "DIA Oracle",
+    description: "Price oracle infrastructure deployed on LUKSO mainnet. Real-time price feeds for tokens updated every 120 seconds. Free for ecosystem builders, essential for DeFi dApps.",
+    url: "https://docs.diadata.org/introduction/dia-technical-structure/data-delivery-methods/integrated-l1-l2-networks/lukso-price-oracles",
+    category: "developer",
+    tags: ["oracle", "price-feeds", "defi", "infrastructure", "smart-contracts"],
+    author: "DIA"
+  },
+
+  // Social
+  {
+    id: "universal-everything",
+    name: "UniversalEverything.io",
+    description: "The social Web3 hub for LUKSO. Explore Universal Profiles, view assets, send/receive tokens, and host mini-apps on your profile Grid. Includes a Token Creator tool.",
+    url: "https://universaleverything.io",
+    category: "social",
+    tags: ["social", "mini-apps", "grid", "token-creator", "profiles"],
+    author: "LUKSO"
+  },
+  {
+    id: "common-ground",
+    name: "Common Ground",
+    description: "Free and open-source Web3 community platform. First social app to integrate Universal Profiles into its core identity system. Features community wallets and governance tools.",
+    url: "https://www.commonground.cg",
+    category: "social",
+    tags: ["social", "community", "governance", "identity", "universal-profile"],
+    author: "Common Ground"
+  },
+  {
+    id: "luksoverse",
+    name: "Luksoverse",
+    description: "Ecosystem navigation hub for LUKSO. Originally started as a community movement, now serves as a directory that connects you to tools, dApps, and resources across the LUKSO ecosystem.",
+    url: "https://luksoverse.io",
+    category: "social",
+    tags: ["directory", "ecosystem", "navigation", "resources"],
+    author: "Community"
   }
 ];
