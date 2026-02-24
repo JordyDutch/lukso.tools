@@ -369,6 +369,16 @@ export const tools: Tool[] = [
     author: "LUKSO"
   },
   {
+    id: "lukso-grid-guide",
+    name: "LUKSO Grid Guide",
+    description: "Step-by-step beginner's guide to building, deploying, and adding a custom mini app to your Universal Profile Grid using AI vibe coding tools. No coding experience required — copy-paste prompts, deployment walkthrough, LSP28 integration, and troubleshooting included.",
+    url: "https://lukso-grid-guide.vercel.app",
+    category: "grid",
+    githubUrl: "https://github.com/JordyDutch/lukso-grid-guide",
+    tags: ["guide", "beginner", "mini-apps", "lsp28", "vibe-coding"],
+    author: "lukso.tools"
+  },
+  {
     id: "eip191-signer",
     name: "EIP-191 Signer",
     description: "Utility tool to sign EIP-191 Execute Relay Call transactions for LUKSO. Essential for building gasless transaction flows using the Key Manager relay service.",
