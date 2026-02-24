@@ -373,9 +373,9 @@ export const tools: Tool[] = [
     name: "LUKSO Grid Guide",
     description: "Step-by-step beginner's guide to building, deploying, and adding a custom mini app to your Universal Profile Grid using AI vibe coding tools. No coding experience required — copy-paste prompts, deployment walkthrough, LSP28 integration, and troubleshooting included.",
     url: "https://lukso-grid-guide.vercel.app",
-    category: "grid",
+    category: "developer",
     githubUrl: "https://github.com/JordyDutch/lukso-grid-guide",
-    tags: ["guide", "beginner", "mini-apps", "lsp28", "vibe-coding"],
+    tags: ["guide", "beginner", "mini-apps", "lsp28", "vibe-coding", "grid"],
     author: "JordyDutch & LUKSOAgent"
   },
   {
