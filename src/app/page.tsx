@@ -39,7 +39,7 @@ function HomeContent() {
 
       const matchesCategory =
         selectedCategory === "all" ||
-        tool.category === selectedCategory;
+        tool.categories.includes(selectedCategory);
 
       return matchesSearch && matchesCategory;
     });
@@ -48,7 +48,9 @@ function HomeContent() {
   const categoryCounts = useMemo(() => {
     const counts: Record<string, number> = { all: tools.length };
     tools.forEach((tool) => {
-      counts[tool.category] = (counts[tool.category] || 0) + 1;
+      tool.categories.forEach((cat) => {
+        counts[cat] = (counts[cat] || 0) + 1;
+      });
     });
     return counts;
   }, []);

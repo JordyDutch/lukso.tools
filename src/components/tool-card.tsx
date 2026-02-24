@@ -11,7 +11,7 @@ interface ToolCardProps {
 }
 
 export function ToolCard({ tool }: ToolCardProps) {
-  const categoryLabel = categories.find(c => c.id === tool.category)?.label || tool.category;
+  const categoryLabel = categories.find(c => c.id === tool.categories[0])?.label || tool.categories[0];
 
   return (
     <Card className="group bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800 hover:shadow-md dark:hover:shadow-gray-900/50 transition-shadow duration-200 h-full py-4 sm:py-6 gap-4 sm:gap-6">
