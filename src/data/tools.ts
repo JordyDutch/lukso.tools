@@ -376,7 +376,7 @@ export const tools: Tool[] = [
     category: "grid",
     githubUrl: "https://github.com/JordyDutch/lukso-grid-guide",
     tags: ["guide", "beginner", "mini-apps", "lsp28", "vibe-coding"],
-    author: "lukso.tools"
+    author: "JordyDutch & LUKSOAgent"
   },
   {
     id: "eip191-signer",
