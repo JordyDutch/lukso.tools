@@ -5,7 +5,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { Header } from "@/components/header";
 import { CategorySidebar } from "@/components/category-sidebar";
 import { ToolCard } from "@/components/tool-card";
-import { tools, categories, ToolCategory } from "@/data/tools";
+import { tools, categories } from "@/data/tools";
 
 const validCategories = categories.map(c => c.id);
 
@@ -14,11 +14,11 @@ function HomeContent() {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState("");
 
-  const categoryParam = searchParams.get("category") as ToolCategory | null;
-  const selectedCategory: ToolCategory =
+  const categoryParam = searchParams.get("category");
+  const selectedCategory: string =
     categoryParam && validCategories.includes(categoryParam) ? categoryParam : "all";
 
-  const setSelectedCategory = useCallback((category: ToolCategory) => {
+  const setSelectedCategory = useCallback((category: string) => {
     const params = new URLSearchParams(searchParams.toString());
     if (category === "all") {
       params.delete("category");
@@ -39,7 +39,7 @@ function HomeContent() {
 
       const matchesCategory =
         selectedCategory === "all" ||
-        tool.category === selectedCategory;
+        tool.categories.includes(selectedCategory);
 
       return matchesSearch && matchesCategory;
     });
@@ -48,7 +48,9 @@ function HomeContent() {
   const categoryCounts = useMemo(() => {
     const counts: Record<string, number> = { all: tools.length };
     tools.forEach((tool) => {
-      counts[tool.category] = (counts[tool.category] || 0) + 1;
+      tool.categories.forEach((cat) => {
+        counts[cat] = (counts[cat] || 0) + 1;
+      });
     });
     return counts;
   }, []);

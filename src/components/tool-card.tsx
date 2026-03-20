@@ -3,7 +3,7 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Github } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import { Tool, categories } from "@/data/tools";
 
 interface ToolCardProps {
@@ -11,7 +11,7 @@ interface ToolCardProps {
 }
 
 export function ToolCard({ tool }: ToolCardProps) {
-  const categoryLabel = categories.find(c => c.id === tool.category)?.label || tool.category;
+  const categoryLabel = tool.categories.length > 0 ? (categories.find(c => c.id === tool.categories[0])?.label || tool.categories[0]) : "";
 
   return (
     <Card className="group bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800 hover:shadow-md dark:hover:shadow-gray-900/50 transition-shadow duration-200 h-full py-4 sm:py-6 gap-4 sm:gap-6">
@@ -21,23 +21,6 @@ export function ToolCard({ tool }: ToolCardProps) {
             {tool.name}
           </h3>
           <div className="flex gap-1">
-            {tool.githubUrl && (
-              <Button
-                variant="ghost"
-                size="icon"
-                className="shrink-0 h-8 w-8 text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800"
-                asChild
-              >
-                <a
-                  href={tool.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`View ${tool.name} on GitHub`}
-                >
-                  <Github className="h-4 w-4" />
-                </a>
-              </Button>
-            )}
             <Button
               variant="ghost"
               size="icon"
@@ -55,9 +38,7 @@ export function ToolCard({ tool }: ToolCardProps) {
             </Button>
           </div>
         </div>
-        {tool.author && (
-          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">by {tool.author}</p>
-        )}
+
       </CardHeader>
       <CardContent className="pt-0 flex flex-col flex-1 px-4 sm:px-6">
         <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed flex-1">
