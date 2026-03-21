@@ -52,9 +52,9 @@ export const tools: Tool[] = [
   // Indexer
   {
     id: "lsp-indexer",
-    name: "LSP Indexer",
-    description: "Index and query LSP assets, profiles, and events on LUKSO mainnet. REST and GraphQL APIs available.",
-    url: "https://github.com/lukso-network/tools-lsp-indexer",
+    name: "Chillwhales LSP Indexer",
+    description: "Index and query LSP assets, profiles, and events on LUKSO mainnet by Chillwhales. REST and GraphQL APIs available.",
+    url: "https://github.com/chillwhales/lsp-indexer",
     categories: ["indexer"],
     tags: ["indexer", "API", "GraphQL", "LSP"],
   },
@@ -84,20 +84,12 @@ export const tools: Tool[] = [
     categories: ["authorization"],
     tags: ["LSP6", "KeyManager", "permissions", "controller"],
   },
-  {
-    id: "defolio",
-    name: "Defolio",
-    description: "Portfolio manager and authorization tool for Universal Profiles. Track assets and manage permissions across your UP.",
-    url: "https://www.de-folio.com",
-    categories: ["authorization"],
-    tags: ["portfolio", "permissions", "LSP6"],
-  },
   // Grid
   {
     id: "grid-store",
     name: "GridStore",
     description: "Discover and install mini-apps for your Universal Profile Grid (LSP28). Browse the community store of Grid extensions.",
-    url: "https://gridstore.xyz",
+    url: "https://grid-store-lukso.vercel.app",
     categories: ["grid"],
     tags: ["LSP28", "Grid", "mini-app"],
   },
@@ -285,7 +277,7 @@ export const tools: Tool[] = [
     id: "common-ground",
     name: "Common Ground",
     description: "Community platform with Universal Profile integration. Connect your UP to join LUKSO communities on Common Ground.",
-    url: "https://www.commonground.cg",
+    url: "https://app.cg",
     categories: ["social"],
     tags: ["community", "social", "Universal Profile"],
   },
