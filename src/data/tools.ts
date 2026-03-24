@@ -128,6 +128,14 @@ export const tools: Tool[] = [
     tags: ["explorer", "blockchain", "transactions"],
   },
   {
+    id: "blockscout-lukso-testnet",
+    name: "Testnet Explorer (Blockscout)",
+    description: "Block explorer for LUKSO testnet — inspect transactions, verify contracts, debug on testnet.",
+    url: "https://explorer.execution.testnet.lukso.network/",
+    categories: ["analytics"],
+    tags: ["explorer", "testnet", "blockchain", "transactions"],
+  },
+  {
     id: "stakingverse-network-stats",
     name: "Stakingverse Network Stats",
     description: "Real-time LUKSO network statistics. Validator count, staking APY, network health, and sLYX metrics.",
@@ -263,6 +271,38 @@ export const tools: Tool[] = [
     url: "https://github.com/lukso-network/network-configs",
     categories: ["developer"],
     tags: ["network", "config", "mainnet", "testnet"],
+  },
+  {
+    id: "lukso-testnet-faucet",
+    name: "LUKSO Testnet Faucet",
+    description: "Request free LYXt (testnet LYX) to start building on LUKSO testnet.",
+    url: "https://faucet.testnet.lukso.network/",
+    categories: ["developer"],
+    tags: ["faucet", "testnet", "LYXt"],
+  },
+  {
+    id: "up-test-dapp",
+    name: "UP Test dApp",
+    description: "Official browser-based testing dApp for Universal Profiles — test UP connections, read ERC725Y data, send transactions.",
+    url: "https://up-test-dapp.lukso.tech/",
+    categories: ["developer"],
+    tags: ["Universal Profile", "ERC725Y", "testing", "dApp"],
+  },
+  {
+    id: "lukso-example-dapps",
+    name: "LUKSO Example dApps",
+    description: "Interactive examples including LSP7/LSP8 token dApp, forum dApp, and account viewer.",
+    url: "https://examples.lukso.tech/",
+    categories: ["developer"],
+    tags: ["examples", "LSP7", "LSP8", "tutorial"],
+  },
+  {
+    id: "staking-launchpad",
+    name: "Staking Launchpad",
+    description: "Official validator deposit tool — upload keystore files and activate LUKSO validator keys.",
+    url: "https://deposit.mainnet.lukso.network/",
+    categories: ["developer"],
+    tags: ["staking", "validator", "deposit", "mainnet"],
   },
   // Social
   {
