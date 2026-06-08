@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { type CuratedList, type ToolWithSignals } from "@/data/curation";
 import { useLiveSignals } from "@/hooks/use-live-signals";
-import { explorerAddressUrl } from "@/lib/lukso/config";
+import { explorerAddressUrl, isConfiguredAddress } from "@/lib/lukso/config";
 import { formatAddress } from "@/lib/lukso/format";
 import { readLsp3Profile } from "@/lib/lukso/contracts";
 import { CheckCircle2, Copy, ExternalLink, Loader2, UserRound } from "lucide-react";
@@ -16,7 +16,7 @@ type HashListEntryTableProps = {
 };
 
 type EntryProfilePreviewProps = {
-  address: string;
+  address?: string;
   fallbackTool?: ToolWithSignals;
 };
 
@@ -60,10 +60,10 @@ function EntryProfilePreview({ address, fallbackTool }: EntryProfilePreviewProps
     let cancelled = false;
 
     async function loadProfile() {
-      if (!shouldLoad || fallbackTool) return;
+    if (!shouldLoad || fallbackTool || !isConfiguredAddress(address)) return;
       setIsLoading(true);
       try {
-        const value = await readLsp3Profile(address);
+        const value = await readLsp3Profile(address as string);
         if (!cancelled) setProfile(readProfileText(value));
       } catch {
         if (!cancelled) setProfile({});
@@ -79,7 +79,7 @@ function EntryProfilePreview({ address, fallbackTool }: EntryProfilePreviewProps
   }, [address, fallbackTool, shouldLoad]);
 
   const displayName = fallbackTool?.name || profile?.name || "Universal Profile";
-  const description = fallbackTool?.description || profile?.description || "HashList entry";
+  const description = fallbackTool?.description || profile?.description || (address ? "HashList entry" : "Legacy directory entry");
 
   return (
     <div ref={containerRef} className="flex min-w-0 items-center gap-3">
@@ -101,16 +101,21 @@ function EntryProfilePreview({ address, fallbackTool }: EntryProfilePreviewProps
 export function HashListEntryTable({ list, fallbackTools }: HashListEntryTableProps) {
   const { listSignals, isLoading } = useLiveSignals();
   const liveEntries = listSignals[list.id]?.entryAddresses;
-  const fallbackEntries = fallbackTools
-    .map((tool) => ({ address: tool.profile?.upAddress, tool }))
-    .filter((entry): entry is { address: string; tool: ToolWithSignals } => Boolean(entry.address));
+  const fallbackEntries = fallbackTools.map((tool) => ({ address: tool.profile?.upAddress, tool }));
   const entries = liveEntries?.length
-    ? liveEntries.map((address) => ({ address, tool: fallbackEntries.find((entry) => entry.address.toLowerCase() === address.toLowerCase())?.tool }))
+    ? liveEntries.map((address) => ({
+        address,
+        tool: fallbackEntries.find((entry) => entry.address?.toLowerCase() === address.toLowerCase())?.tool,
+      }))
     : fallbackEntries;
-  const sourceLabel = liveEntries?.length ? "live HashList entries" : "configured preview entries";
+  const sourceLabel = liveEntries?.length ? "live HashList entries" : "legacy directory entries";
 
   const notesByAddress = useMemo(() => {
-    return new Map(fallbackEntries.map((entry) => [entry.address.toLowerCase(), `${entry.tool.name} is included in ${list.name}.`]));
+    return new Map(
+      fallbackEntries
+        .filter((entry): entry is { address: string; tool: ToolWithSignals } => Boolean(entry.address))
+        .map((entry) => [entry.address.toLowerCase(), `${entry.tool.name} is included in ${list.name}.`]),
+    );
   }, [fallbackEntries, list.name]);
 
   async function copyAddress(address: string) {
@@ -143,41 +148,54 @@ export function HashListEntryTable({ list, fallbackTools }: HashListEntryTablePr
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
-            {entries.map((entry) => (
-              <tr key={entry.address} className="align-middle">
+            {entries.map((entry) => {
+              const hasAddress = isConfiguredAddress(entry.address);
+              return (
+              <tr key={entry.address || entry.tool?.id} className="align-middle">
                 <td className="min-w-72 px-4 py-3">
                   <EntryProfilePreview address={entry.address} fallbackTool={entry.tool} />
                 </td>
                 <td className="whitespace-nowrap px-4 py-3 font-mono text-xs text-gray-600 dark:text-gray-300">
-                  {formatAddress(entry.address, 5)}
+                  {hasAddress ? formatAddress(entry.address, 5) : "legacy"}
                 </td>
                 <td className="min-w-60 px-4 py-3 text-xs text-gray-600 dark:text-gray-400">
-                  {notesByAddress.get(entry.address.toLowerCase()) || "Added by curator."}
+                  {entry.address ? notesByAddress.get(entry.address.toLowerCase()) || "Added by curator." : "Existing directory item. Recreate as a Tool UP for new HashLists."}
                 </td>
                 <td className="px-4 py-3">
                   <div className="flex justify-end gap-1">
-                    <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => copyAddress(entry.address)} aria-label="Copy entry address">
-                      <Copy className="h-4 w-4" />
-                    </Button>
-                    <Button variant="ghost" size="icon" className="h-8 w-8" asChild>
-                      <a href={explorerAddressUrl(entry.address)} target="_blank" rel="noreferrer" aria-label="Open entry on explorer">
-                        <ExternalLink className="h-4 w-4" />
-                      </a>
-                    </Button>
+                    {hasAddress ? (
+                      <>
+                        <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => copyAddress(entry.address as string)} aria-label="Copy entry address">
+                          <Copy className="h-4 w-4" />
+                        </Button>
+                        <Button variant="ghost" size="icon" className="h-8 w-8" asChild>
+                          <a href={explorerAddressUrl(entry.address as string)} target="_blank" rel="noreferrer" aria-label="Open entry on explorer">
+                            <ExternalLink className="h-4 w-4" />
+                          </a>
+                        </Button>
+                      </>
+                    ) : entry.tool ? (
+                      <Button variant="ghost" size="icon" className="h-8 w-8" asChild>
+                        <a href={entry.tool.url} target="_blank" rel="noreferrer" aria-label={`Open ${entry.tool.name}`}>
+                          <ExternalLink className="h-4 w-4" />
+                        </a>
+                      </Button>
+                    ) : null}
                   </div>
                 </td>
               </tr>
-            ))}
+            );
+            })}
           </tbody>
         </table>
       </div>
 
       <div className="flex flex-wrap gap-2 border-t border-gray-200 px-4 py-3 dark:border-gray-800">
         <Badge variant="secondary" className="border-0 bg-gray-100 text-xs text-gray-600 dark:bg-gray-800 dark:text-gray-300">
-          HashList membership
+          {liveEntries?.length ? "HashList membership" : "legacy view"}
         </Badge>
         <Badge variant="secondary" className="border-0 bg-gray-100 text-xs text-gray-600 dark:bg-gray-800 dark:text-gray-300">
-          Tool UP addresses
+          {liveEntries?.length ? "Tool UP addresses" : "no fake UP addresses"}
         </Badge>
         <span className="inline-flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
           <UserRound className="h-3.5 w-3.5" />

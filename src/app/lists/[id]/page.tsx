@@ -5,7 +5,7 @@ import { ToolCard } from "@/components/tool-card";
 import { Button } from "@/components/ui/button";
 import { curatedLists, getToolsForList, adjustedLikes } from "@/data/curation";
 import { LikeButton } from "@/components/like-button";
-import { explorerAddressUrl, getLiveListConfig } from "@/lib/lukso/config";
+import { explorerAddressUrl, getLiveListConfig, isConfiguredAddress } from "@/lib/lukso/config";
 import { formatAddress } from "@/lib/lukso/format";
 import { HashListEntryTable } from "@/components/hashlist-entry-table";
 
@@ -28,6 +28,8 @@ export default async function ListPage({ params }: ListPageProps) {
   const liveList = getLiveListConfig(list);
   const hashListAddress = liveList?.hashListAddress || list.hashListAddress;
   const listUpAddress = liveList?.listUpAddress || list.listUpAddress;
+  const hasHashList = isConfiguredAddress(hashListAddress);
+  const hasListUp = isConfiguredAddress(listUpAddress);
   const initials = list.name
     .split(" ")
     .map((word) => word[0])
@@ -57,7 +59,7 @@ export default async function ListPage({ params }: ListPageProps) {
                 <div className="mb-3 flex flex-wrap items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
                   <span className="inline-flex items-center gap-1">
                     <ShieldCheck className="h-4 w-4 text-emerald-500" />
-                    HashList curation
+                    {hasHashList ? "HashList curation" : "Legacy curation"}
                   </span>
                   <span className="inline-flex items-center gap-1">
                     <UserRound className="h-4 w-4" />
@@ -105,18 +107,22 @@ export default async function ListPage({ params }: ListPageProps) {
 
           <div className="mt-5 flex flex-wrap gap-2">
             <LikeButton recipient={listUpAddress} />
-            <Button asChild variant="outline">
-              <a href={`https://universaleverything.io/${listUpAddress}`} target="_blank" rel="noreferrer">
-                <ExternalLink className="mr-2 h-4 w-4" />
-                Open List UP
-              </a>
-            </Button>
-            <Button asChild variant="outline">
-              <a href={explorerAddressUrl(hashListAddress)} target="_blank" rel="noreferrer">
-                <ExternalLink className="mr-2 h-4 w-4" />
-                Open HashList
-              </a>
-            </Button>
+            {hasListUp ? (
+              <Button asChild variant="outline">
+                <a href={`https://universaleverything.io/${listUpAddress}`} target="_blank" rel="noreferrer">
+                  <ExternalLink className="mr-2 h-4 w-4" />
+                  Open List UP
+                </a>
+              </Button>
+            ) : null}
+            {hasHashList ? (
+              <Button asChild variant="outline">
+                <a href={explorerAddressUrl(hashListAddress as string)} target="_blank" rel="noreferrer">
+                  <ExternalLink className="mr-2 h-4 w-4" />
+                  Open HashList
+                </a>
+              </Button>
+            ) : null}
           </div>
           </div>
         </section>

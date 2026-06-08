@@ -8,7 +8,7 @@ import { adjustedLikes, getToolsForList, type CuratedList } from "@/data/curatio
 import { ArrowRight, ExternalLink, Heart, ListChecks, ShieldCheck, UserRound } from "lucide-react";
 import { LikeButton } from "@/components/like-button";
 import { type LiveListSignal } from "@/hooks/use-live-signals";
-import { explorerAddressUrl } from "@/lib/lukso/config";
+import { explorerAddressUrl, isConfiguredAddress } from "@/lib/lukso/config";
 import { formatAddress } from "@/lib/lukso/format";
 
 interface CuratedListCardProps {
@@ -22,6 +22,7 @@ export function CuratedListCard({ list, liveSignal }: CuratedListCardProps) {
   const entryCount = liveSignal?.entryAddresses?.length ?? tools.length;
   const score = adjustedLikes(likesReceived, list.uniqueLikers);
   const listAddress = liveSignal?.hashListAddress || list.hashListAddress;
+  const hasLiveHashList = isConfiguredAddress(listAddress);
   const initials = list.name
     .split(" ")
     .map((word) => word[0])
@@ -42,7 +43,7 @@ export function CuratedListCard({ list, liveSignal }: CuratedListCardProps) {
             <div className="mb-2 flex flex-wrap items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
               <span className="inline-flex items-center gap-1">
                 <ShieldCheck className="h-3.5 w-3.5 text-emerald-500" />
-                curated HashList
+                {hasLiveHashList ? "curated HashList" : "legacy curation"}
               </span>
               <span className="inline-flex items-center gap-1">
                 <UserRound className="h-3.5 w-3.5" />
@@ -58,11 +59,13 @@ export function CuratedListCard({ list, liveSignal }: CuratedListCardProps) {
             </div>
           </div>
           <div className="flex shrink-0 gap-1">
-            <Button asChild size="icon" variant="ghost" className="h-8 w-8">
-              <a href={explorerAddressUrl(listAddress)} target="_blank" rel="noreferrer" aria-label={`Open ${list.name} on explorer`}>
-                <ExternalLink className="h-4 w-4" />
-              </a>
-            </Button>
+            {hasLiveHashList ? (
+              <Button asChild size="icon" variant="ghost" className="h-8 w-8">
+                <a href={explorerAddressUrl(listAddress as string)} target="_blank" rel="noreferrer" aria-label={`Open ${list.name} on explorer`}>
+                  <ExternalLink className="h-4 w-4" />
+                </a>
+              </Button>
+            ) : null}
             <Button asChild size="icon" variant="ghost" className="h-8 w-8">
               <Link href={`/lists/${list.id}`} aria-label={`Open ${list.name}`}>
                 <ArrowRight className="h-4 w-4" />
@@ -103,11 +106,7 @@ export function CuratedListCard({ list, liveSignal }: CuratedListCardProps) {
             </Badge>
           ))}
         </div>
-        <LikeButton
-          recipient={liveSignal?.listUpAddress || list.listUpAddress}
-          label="Like list"
-          className="mt-4"
-        />
+        <LikeButton recipient={liveSignal?.listUpAddress || list.listUpAddress} label="Like list" className="mt-4" />
       </CardContent>
     </Card>
   );

@@ -25,8 +25,15 @@ export const HASHLISTS_PROTOCOL_ADDRESS =
   HASHLISTS_PROTOCOL_BY_CHAIN[LUKSO_CHAIN_ID] ||
   "";
 
-export type LiveListConfig = Pick<CuratedList, "id" | "hashListAddress" | "listUpAddress">;
-export type LiveToolConfig = Pick<ToolProfile, "toolId" | "upAddress">;
+export type LiveListConfig = {
+  id: string;
+  hashListAddress: string;
+  listUpAddress?: string;
+};
+export type LiveToolConfig = {
+  toolId: string;
+  upAddress: string;
+};
 
 function parseJsonEnv<T>(value: string | undefined): T[] {
   if (!value) return [];
@@ -63,7 +70,7 @@ export function getLiveListConfig(list: CuratedList): LiveListConfig | undefined
 
   return {
     id: list.id,
-    hashListAddress: list.hashListAddress,
+    hashListAddress: list.hashListAddress as string,
     listUpAddress: list.listUpAddress,
   };
 }
@@ -77,7 +84,7 @@ export function getLiveToolConfig(profile: ToolProfile | undefined): LiveToolCon
 
   return {
     toolId: profile.toolId,
-    upAddress: profile.upAddress,
+    upAddress: profile.upAddress as string,
   };
 }
 

@@ -5,7 +5,9 @@ import {
   getLiveListConfig,
   getLiveToolConfig,
   LIKES_TOKEN_ADDRESS,
+  liveToolConfigs,
   type LiveListConfig,
+  type LiveToolConfig,
 } from "@/lib/lukso/config";
 import { curatedLists, toolProfiles } from "@/data/curation";
 import {
@@ -52,6 +54,15 @@ function readProfileText(value: unknown) {
   };
 }
 
+function uniqueToolConfigs(configs: (LiveToolConfig | undefined)[]) {
+  const byToolId = new Map<string, LiveToolConfig>();
+  for (const config of configs) {
+    if (!config) continue;
+    byToolId.set(config.toolId, config);
+  }
+  return [...byToolId.values()];
+}
+
 export function useLiveSignals() {
   const [state, setState] = useState<LiveSignalsState>({
     toolSignals: {},
@@ -70,8 +81,8 @@ export function useLiveSignals() {
     let cancelled = false;
 
     async function load() {
-      const liveToolConfigs = toolProfiles.map(getLiveToolConfig).filter(Boolean);
-      const hasAnyLiveSource = liveToolConfigs.length > 0 || listConfigs.length > 0 || Boolean(LIKES_TOKEN_ADDRESS);
+      const toolConfigs = uniqueToolConfigs([...liveToolConfigs, ...toolProfiles.map(getLiveToolConfig)]);
+      const hasAnyLiveSource = toolConfigs.length > 0 || listConfigs.length > 0 || Boolean(LIKES_TOKEN_ADDRESS);
       if (!hasAnyLiveSource) return;
 
       setState((current) => ({ ...current, isLoading: true, error: "" }));
@@ -82,7 +93,7 @@ export function useLiveSignals() {
         const listSignals: Record<string, LiveListSignal> = {};
 
         await Promise.all(
-          liveToolConfigs.map(async (config) => {
+          toolConfigs.map(async (config) => {
             if (!config) return;
             const [profileValue, likesReceived] = await Promise.all([
               readLsp3Profile(config.upAddress).catch(() => undefined),
