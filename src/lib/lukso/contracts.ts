@@ -7,6 +7,7 @@ import {
   formatUnits,
   getAddress,
   http,
+  parseEventLogs,
   parseUnits,
   type Address,
   type Hex,
@@ -86,17 +87,36 @@ export const lsp8EnumerableAbi = [
     inputs: [{ name: "tokenId", type: "bytes32" }],
     outputs: [{ name: "owner", type: "address" }],
   },
+] as const;
+
+export const curatedListAbi = [
+  ...lsp8EnumerableAbi,
+  {
+    type: "function",
+    name: "mint",
+    stateMutability: "nonpayable",
+    inputs: [{ name: "addressOfEntry", type: "bytes32" }],
+    outputs: [],
+  },
+] as const;
+
+export const hashlistsProtocolAbi = [
   {
     type: "function",
     name: "mint",
     stateMutability: "nonpayable",
     inputs: [
-      { name: "to", type: "address" },
-      { name: "tokenId", type: "bytes32" },
-      { name: "force", type: "bool" },
-      { name: "data", type: "bytes" },
+      { name: "curatedListName", type: "string" },
+      { name: "curatedListSymbol", type: "string" },
+      { name: "curator", type: "address" },
+      { name: "lsp4MetadataURIOfLSP8", type: "bytes" },
     ],
     outputs: [],
+  },
+  {
+    type: "event",
+    name: "CuratedListCreated",
+    inputs: [{ name: "curatedListAddress", type: "address", indexed: true }],
   },
 ] as const;
 
@@ -220,15 +240,46 @@ export async function mintHashListEntry(
 ) {
   const tokenId = addressToTokenId(toolUpAddress);
   const data = encodeFunctionData({
-    abi: lsp8EnumerableAbi,
+    abi: curatedListAbi,
     functionName: "mint",
-    args: [getAddress(toolUpAddress), tokenId, true, "0x"],
+    args: [tokenId],
   });
 
   return provider.request({
     method: "eth_sendTransaction",
     params: [{ from: getAddress(from), to: getAddress(hashListAddress), data }],
   }) as Promise<Hex>;
+}
+
+export async function deployHashList(
+  provider: Eip1193Provider,
+  from: string,
+  protocolAddress: string,
+  name: string,
+  symbol: string,
+  metadataUri: Hex = "0x",
+) {
+  const data = encodeFunctionData({
+    abi: hashlistsProtocolAbi,
+    functionName: "mint",
+    args: [name, symbol, getAddress(from), metadataUri],
+  });
+
+  return provider.request({
+    method: "eth_sendTransaction",
+    params: [{ from: getAddress(from), to: getAddress(protocolAddress), data }],
+  }) as Promise<Hex>;
+}
+
+export async function waitForHashListDeployment(txHash: Hex) {
+  const receipt = await publicClient.waitForTransactionReceipt({ hash: txHash });
+  const logs = parseEventLogs({
+    abi: hashlistsProtocolAbi,
+    eventName: "CuratedListCreated",
+    logs: receipt.logs,
+  });
+
+  return logs[0]?.args.curatedListAddress;
 }
 
 export function createWalletClient(provider: Eip1193Provider) {

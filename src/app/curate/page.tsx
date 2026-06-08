@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { ArrowLeft, CheckCircle2, Heart, ListPlus, Search, ShieldCheck, UserRound } from "lucide-react";
+import { ArrowLeft, CheckCircle2, Heart, Search, ShieldCheck, UserRound } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ToolCard } from "@/components/tool-card";
 import { curatedLists, getToolsWithSignals } from "@/data/curation";
 import { WalletConnectButton } from "@/components/wallet-connect-button";
 import { AddToHashListButton } from "@/components/add-to-hashlist-button";
+import { CreateHashListForm } from "@/components/create-hashlist-form";
 import { getLiveListConfig, getLiveToolConfig } from "@/lib/lukso/config";
 import { useLiveSignals } from "@/hooks/use-live-signals";
 
@@ -98,11 +99,9 @@ export default function CuratePage() {
                   </div>
                 </div>
               ) : null}
-              <Button className="mt-4 w-full" variant="outline">
-                <ListPlus className="mr-2 h-4 w-4" />
-                Create HashList later
-              </Button>
             </section>
+
+            <CreateHashListForm defaultName={selectedList?.name || "LUKSO Tool List"} />
 
             <section className="rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-900">
               <h2 className="text-sm font-semibold uppercase text-gray-900 dark:text-gray-100">

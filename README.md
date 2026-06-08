@@ -28,6 +28,7 @@ Copy `.env.example` to `.env.local` and set:
 
 ```bash
 NEXT_PUBLIC_LUKSO_RPC_URL=https://rpc.mainnet.lukso.network
+NEXT_PUBLIC_HASHLISTS_PROTOCOL_ADDRESS=0xcD24F4b22729f3d531853255e1F31D87E42dD219
 NEXT_PUBLIC_LIKES_TOKEN_ADDRESS=0x...
 NEXT_PUBLIC_CURATED_LISTS='[{"id":"jordy-dev-essentials","hashListAddress":"0x...","listUpAddress":"0x..."}]'
 NEXT_PUBLIC_TOOL_PROFILES='[{"toolId":"stakingverse","upAddress":"0x..."}]'
@@ -36,10 +37,16 @@ NEXT_PUBLIC_TOOL_PROFILES='[{"toolId":"stakingverse","upAddress":"0x..."}]'
 Live behavior:
 
 - HashList reads use LSP8 `totalSupply()` and `tokenAt(index)`.
-- HashList writes mint the padded Tool UP address as the LSP8 token id.
+- New HashLists deploy through the Hashlists protocol collection via `mint(name, symbol, curator, metadataURI)`.
+- HashList writes mint the padded Tool UP address as the LSP8 token id using the child list `mint(bytes32)` function.
 - Tool UP profile reads use ERC725Y/LSP3 profile metadata.
 - LIKES reads use LSP7 `balanceOf(address)`.
 - LIKES sends use LSP7 `transfer(from, to, amount, force, data)`.
+
+Default Hashlists protocol collection addresses:
+
+- LUKSO mainnet: `0xcD24F4b22729f3d531853255e1F31D87E42dD219`
+- LUKSO testnet: `0xd5127cBcb66cCb18ff02d85FB461E4c284319023`
 
 Placeholder addresses are ignored, so the UI will not submit fake transactions by accident.
 
